@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    Dictionary<string, Item> items;
 
     void Awake()
     {
@@ -18,6 +21,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        items = DataLoader.cargaItems("Ejemplo");
+
+        /*foreach (var item in items.Values)
+        {
+            Debug.Log(String.Format("{0} {1} {2}",item.id , item.descripcion, item.esFinal.ToString()));
+        }*/
     }
 
     // Add your game management methods here
