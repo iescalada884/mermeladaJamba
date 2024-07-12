@@ -8,7 +8,9 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    Dictionary<string, Item> items;
+
+    public Dictionary<string, Item> items;
+    public List<Recipie> recipies;
 
     void Awake()
     {
@@ -23,6 +25,20 @@ public class GameManager : MonoBehaviour
         }
 
         items = DataLoader.cargaItems("Ejemplo");
+
+        recipies = DataLoader.cargaRecetas("recetas");
+
+
+        //Test sistema recetas
+        recipieScript rs = this.GetComponent<recipieScript>();
+
+        rs.anadeIngredienteReceta(items["2"]);
+        rs.anadeIngredienteReceta(items["test"]);
+        rs.anadeIngredienteReceta(items["test"]);
+
+        Recipie final = rs.hazPocion();
+
+        Debug.Log(final.id);
 
         /*foreach (var item in items.Values)
         {
