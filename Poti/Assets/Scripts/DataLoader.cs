@@ -97,6 +97,8 @@ public static class DataLoader
                     ingredientes.Add(row_values[3 + (i * 2)], int.Parse(row_values[4 + (i * 2)]));
                 }
 
+                recipie.ingredientes = ingredientes;
+
                 recetas.Add(recipie);
             }
         }

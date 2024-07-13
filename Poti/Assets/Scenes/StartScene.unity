@@ -271,7 +271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: test cambio escena
+  m_text: test receta
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -680,6 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1eb0f1e1fa25d4292a9b81e087d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rec: {fileID: 0}
 --- !u!4 &2036445372
 Transform:
   m_ObjectHideFlags: 0
@@ -699,7 +700,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2036445372}
   - {fileID: 519420032}
   - {fileID: 1651446358}
   - {fileID: 579515538}
-  - {fileID: 2036445372}

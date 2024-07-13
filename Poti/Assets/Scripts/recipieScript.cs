@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -7,11 +8,20 @@ public class recipieScript : MonoBehaviour {
         public List<Recipie> recipies = new List<Recipie>();
         private Dictionary<Item, int> ingredients = new Dictionary<Item, int> ();
 
-    GameManager gameManager;
+     GameManager gameManager;
 
-    public void Start()
+    public void Awake()
     {
-        gameManager = GameManager.instance; 
+        gameManager = FindObjectOfType<GameManager>(); ;
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager no encontrado");
+        } else
+        {
+            vaciaIng();
+        }
+        
+
     }
     /**
     * Guarda el ingrediente que se esta mezclando y va dejando una lista de posibles recetas
@@ -21,11 +31,6 @@ public class recipieScript : MonoBehaviour {
 
             filtraReceta(ing);
             anadeIngrediente(ing);
-
-        foreach (var item in recipies)
-        {
-            Debug.Log(item.id);
-        }
     }
 
         private void anadeIngrediente(Item ing) {
@@ -38,17 +43,28 @@ public class recipieScript : MonoBehaviour {
             }
         }
 
-        private void vaciaIng()
+        public void vaciaIng()
     {
         ingredients.Clear();
 
 
         recipies = gameManager.recipies.ToList();
-        
     }
     private void filtraReceta(Item ing)
     {
-        List<Recipie> toRemove = recipies.FindAll(r => !r.ingredientes.ContainsKey(ing.id));
+
+        List<Recipie> toRemove = recipies.FindAll(r =>
+        {
+            if (r == null)
+            {
+                throw new ArgumentNullException(nameof(r), "A recipie in the list is null.");
+            }
+            if (r.ingredientes == null)
+            {
+                throw new ArgumentNullException(nameof(r.ingredientes), "The ingredientes dictionary in a recipie is null.");
+            }
+            return !r.ingredientes.ContainsKey(ing.id);
+        });
 
         recipies.RemoveAll(x => toRemove.Contains(x));
 
@@ -62,8 +78,6 @@ public class recipieScript : MonoBehaviour {
             //Miro que tenga la cantidad correcta de cada ingrediente
             foreach (var item in ingredients)
             {
-                Debug.Log(item.Key);
-                Debug.Log(item.Value);
                 if (r.ingredientes[item.Key.id] != item.Value)
                     return false;
             }
